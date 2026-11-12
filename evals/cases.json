@@ -1,0 +1,98 @@
+[
+  {
+    "id": "MAP-01",
+    "columns": [
+      ["Customer Ref", "id"],
+      ["Full Name", "text"],
+      ["Work Email", "email"],
+      ["Org Name", "text"],
+      ["Region", "text"],
+      ["Phone", "phone"],
+      ["Signup Date", "date"],
+      ["Status", "enum"],
+      ["Account Executive", "email"]
+    ],
+    "expected": ["customer_id", "full_name", "email", "company", "country", "phone", "created_at", "lifecycle_stage", "owner_email"]
+  },
+  {
+    "id": "MAP-02",
+    "columns": [
+      ["Record ID", "id"],
+      ["Contact Name", "text"],
+      ["Email Address", "email"],
+      ["Company", "text"],
+      ["Country", "text"],
+      ["Created Date", "date"]
+    ],
+    "expected": ["customer_id", "full_name", "email", "company", "country", "created_at"]
+  },
+  {
+    "id": "MAP-03",
+    "columns": [
+      ["Account ID", "id"],
+      ["Full Name", "text"],
+      ["Business Email", "email"],
+      ["Account Name", "text"],
+      ["Account Status", "enum"],
+      ["Account Owner Email", "email"]
+    ],
+    "expected": ["customer_id", "full_name", "email", "company", "lifecycle_stage", "owner_email"]
+  },
+  {
+    "id": "MAP-04",
+    "columns": [
+      ["客户编号", "id"],
+      ["姓名", "text"],
+      ["工作邮箱", "email"],
+      ["公司", "text"],
+      ["地区", "text"],
+      ["注册日期", "date"],
+      ["状态", "enum"]
+    ],
+    "expected": ["customer_id", "full_name", "email", "company", "country", "created_at", "lifecycle_stage"]
+  },
+  {
+    "id": "MAP-05",
+    "columns": [
+      ["Organization", "text"],
+      ["Mobile", "phone"],
+      ["Contact Email", "email"],
+      ["Market", "text"]
+    ],
+    "expected": ["company", "phone", "email", "country"]
+  },
+  {
+    "id": "MAP-06",
+    "columns": [
+      ["ID", "id"],
+      ["Name", "text"],
+      ["Email", "email"],
+      ["Company Name", "text"],
+      ["Lifecycle Stage", "enum"]
+    ],
+    "expected": ["customer_id", "full_name", "email", "company", "lifecycle_stage"]
+  },
+  {
+    "id": "MAP-07",
+    "columns": [
+      ["CRM ID", "id"],
+      ["Person Name", "text"],
+      ["Primary Email", "email"],
+      ["Employer", "text"],
+      ["Sales Owner", "text"]
+    ],
+    "expected": ["customer_id", "full_name", "email", "company", "owner_email"]
+  },
+  {
+    "id": "MAP-08",
+    "columns": [
+      ["Client ID", "id"],
+      ["Contact Name", "text"],
+      ["Contact Email", "email"],
+      ["Organization", "text"],
+      ["Telephone", "phone"],
+      ["Start Date", "date"]
+    ],
+    "expected": ["customer_id", "full_name", "email", "company", "phone", "created_at"]
+  }
+]

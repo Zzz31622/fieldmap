@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="FieldMap customer data onboarding copilot for forward-deployed engineering.">
+  <meta name="theme-color" content="#151b1d">
+  <title>FieldMap | Customer Data Onboarding</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css?v=20261112a">
+</head>
+<body>
+  <svg class="icon-sprite" aria-hidden="true">
+    <symbol id="icon-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="icon-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="icon-code" viewBox="0 0 24 24"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></symbol>
+    <symbol id="icon-download" viewBox="0 0 24 24"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"/></symbol>
+    <symbol id="icon-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></symbol>
+    <symbol id="icon-grid" viewBox="0 0 24 24"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/></symbol>
+    <symbol id="icon-lock" viewBox="0 0 24 24"><rect width="16" height="12" x="4" y="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v4"/></symbol>
+    <symbol id="icon-play" viewBox="0 0 24 24"><path d="m6 3 15 9-15 9Z"/></symbol>
+    <symbol id="icon-refresh" viewBox="0 0 24 24"><path d="M20 11a8.1 8.1 0 1 0 .4 5M20 4v7h-7"/></symbol>
+    <symbol id="icon-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V5l8-3 8 3Z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="icon-spark" viewBox="0 0 24 24"><path d="m12 3 1.4 4.6L18 9l-4.6 1.4L12 15l-1.4-4.6L6 9l4.6-1.4L12 3Z"/><path d="m19 15 .7 2.3L22 18l-2.3.7L19 21l-.7-2.3L16 18l2.3-.7L19 15Z"/></symbol>
+    <symbol id="icon-upload" viewBox="0 0 24 24"><path d="M12 16V4m0 0 4 4m-4-4L8 8M5 20h14"/></symbol>
+    <symbol id="icon-warning" viewBox="0 0 24 24"><path d="m21.7 18-8-14a2 2 0 0 0-3.4 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.7-3Z"/><path d="M12 9v4M12 17h.01"/></symbol>
+  </svg>
+
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="FieldMap home">
+      <span class="brand-mark">
+        <span></span><span></span><span></span><span></span>
+      </span>
+      <span class="brand-name">FieldMap</span>
+      <span class="brand-rule"></span>
+      <span class="brand-subtitle">CUSTOMER DATA ONBOARDING</span>
+    </a>
+    <div class="topbar-right">
+      <span class="privacy-status">
+        <svg class="icon"><use href="#icon-lock"></use></svg>
+        Local processing
+      </span>
+      <span class="topbar-divider"></span>
+      <span class="engine-status" id="engineStatus">
+        <span class="status-dot"></span>
+        <span id="engineLabel">Local mapper</span>
+      </span>
+    </div>
+  </header>
+
+  <main class="app-shell">
+    <section class="dataset-bar">
+      <div class="dataset-identity">
+        <span class="eyebrow">Imported CSV</span>
+        <label class="dataset-name">
+          <span class="sr-only">Dataset name</span>
+          <input id="datasetName" type="text" value="northstar_contacts.csv" maxlength="120">
+        </label>
+        <span class="dataset-source" id="datasetSource">Synthetic demo</span>
+      </div>
+      <div class="dataset-metrics" aria-label="Dataset metrics">
+        <div><strong id="rowMetric">8</strong><span>ROWS</span></div>
+        <div><strong id="columnMetric">9</strong><span>COLUMNS</span></div>
+        <div><strong id="fieldMetric">9/9</strong><span>FIELDS</span></div>
+        <div><strong id="piiMetric">6</strong><span>PII FIELDS</span></div>
+      </div>
+      <div class="dataset-actions">
+        <input class="file-input" id="fileInput" type="file" accept=".csv,text/csv">
+        <button class="text-action" id="sampleButton" type="button">
+          <svg class="icon"><use href="#icon-refresh"></use></svg>
+          Sample
+        </button>
+        <button class="secondary-button" id="loadButton" type="button">
+          <svg class="icon"><use href="#icon-upload"></use></svg>
+          Load CSV
+        </button>
+        <button class="primary-button" id="runButton" type="button">
+          <svg class="icon run-icon"><use href="#icon-spark"></use></svg>
+          <span>Run mapping</span>
+        </button>
+      </div>
+    </section>
+
+    <div class="workbench-grid">
+      <aside class="source-panel" aria-label="Source column profile">
+        <div class="panel-heading">
+          <div>
+            <span class="eyebrow">Source profile</span>
+            <h1>Columns <span class="count-badge" id="sourceCount">9</span></h1>
+          </div>
+          <span class="file-type">CSV</span>
+        </div>
+        <div class="privacy-note">
+          <svg class="icon"><use href="#icon-lock"></use></svg>
+          <p>Rows stay in this browser. Live mapping sends column names and inferred types only.</p>
+        </div>
+        <div class="source-list" id="sourceList"></div>
+        <section class="profile-summary">
+          <span class="eyebrow">Inferred profile</span>
+          <div id="typeSummary"></div>
+        </section>
+      </aside>
+
+      <section class="mapping-workspace">
+        <div class="workspace-toolbar">
+          <div class="view-tabs" role="tablist" aria-label="Mapping views">
+            <button class="view-tab is-active" id="mappingTab" data-view="mapping" type="button" role="tab" aria-selected="true">Schema mapping</button>
+            <button class="view-tab" id="previewTab" data-view="preview" type="button" role="tab" aria-selected="false">Preview</button>
+            <button class="view-tab" id="handoffTab" data-view="handoff" type="button" role="tab" aria-selected="false">Handoff</button>
+          </div>
+          <span class="mapping-meta" id="mappingMeta">9 source columns · 100% schema coverage</span>
+        </div>
+
+        <section class="workspace-view is-active" id="mappingView" role="tabpanel" aria-labelledby="mappingTab">
+          <div class="mapping-table-wrap">
+            <table class="mapping-table">
+              <thead>
+                <tr>
+                  <th>Source column</th>
+                  <th>Sample</th>
+                  <th>Destination field</th>
+                  <th>Transformation</th>
+                  <th>Confidence</th>
+                </tr>
+              </thead>
+              <tbody id="mappingRows"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="workspace-view" id="previewView" role="tabpanel" aria-labelledby="previewTab" hidden>
+          <div class="view-heading">
+            <div>
+              <span class="eyebrow">Normalized output</span>
+              <h2>Transformation preview</h2>
+            </div>
+            <span class="preview-note">First 6 rows · PII masked</span>
+          </div>
+          <div class="preview-table-wrap">
+            <table class="preview-table" id="previewTable"></table>
+          </div>
+        </section>
+
+        <section class="workspace-view" id="handoffView" role="tabpanel" aria-labelledby="handoffTab" hidden>
+          <div class="view-heading">
+            <div>
+              <span class="eyebrow">Implementation handoff</span>
+              <h2>Onboarding plan</h2>
+            </div>
+            <div class="handoff-actions">
+              <button class="secondary-button compact" id="jsonButton" type="button">
+                <svg class="icon"><use href="#icon-code"></use></svg>
+                JSON
+              </button>
+              <button class="secondary-button compact" id="exportButton" type="button">
+                <svg class="icon"><use href="#icon-download"></use></svg>
+                Markdown
+              </button>
+            </div>
+          </div>
+          <article class="brief-card">
+            <span class="eyebrow">Situation brief</span>
+            <p id="analysisSummary"></p>
+          </article>
+          <div class="handoff-grid">
+            <article class="handoff-block">
+              <span class="eyebrow">Canonical mapping</span>
+              <div class="compact-mapping" id="handoffMappings"></div>
+            </article>
+            <article class="handoff-block">
+              <span class="eyebrow">Recommended next steps</span>
+              <ol class="recommendation-list" id="recommendationList"></ol>
+            </article>
+          </div>
+          <article class="privacy-handoff">
+            <svg class="icon"><use href="#icon-shield"></use></svg>
+            <div>
+              <strong>Customer-safe handoff</strong>
+              <p>This plan contains field mappings, inferred types, and validation summaries. It does not include raw CSV rows.</p>
+            </div>
+          </article>
+        </section>
+      </section>
+
+      <aside class="readiness-panel" aria-label="Readiness review">
+        <section class="readiness-card">
+          <div class="readiness-heading">
+            <div>
+              <span class="eyebrow">Readiness</span>
+              <h2>Import score</h2>
+            </div>
+            <span class="readiness-badge" id="readinessBadge">Review</span>
+          </div>
+          <div class="score-display">
+            <strong id="scoreValue">83</strong>
+            <span>/100</span>
+          </div>
+          <progress class="score-meter" id="scoreMeter" max="100" value="83" aria-label="Import readiness score">83</progress>
+          <p id="readinessCopy">Resolve the highlighted quality issues before creating the customer import.</p>
+        </section>
+
+        <section class="review-card">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">Validation</span>
+              <h2>Quality checks</h2>
+            </div>
+            <span class="check-count" id="checkCount">3/5</span>
+          </div>
+          <div class="check-list" id="checkList"></div>
+        </section>
+
+        <section class="review-card">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">Open issues</span>
+              <h2>Review queue</h2>
+            </div>
+            <span class="issue-count" id="issueCount">2</span>
+          </div>
+          <div class="issue-list" id="issueList"></div>
+        </section>
+
+        <section class="review-card">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">Data protection</span>
+              <h2>PII fields</h2>
+            </div>
+            <span class="pii-count" id="piiCount">6</span>
+          </div>
+          <div class="pii-list" id="piiList"></div>
+        </section>
+
+        <section class="approval-card">
+          <div class="approval-heading">
+            <span class="approval-icon"><svg class="icon"><use href="#icon-shield"></use></svg></span>
+            <div>
+              <span class="eyebrow">Human gate</span>
+              <h2 id="approvalTitle">Approve mapping</h2>
+            </div>
+          </div>
+          <p id="approvalCopy">Review field mappings and quality issues before exporting the implementation plan.</p>
+          <button class="approval-button" id="approveButton" type="button">
+            <svg class="icon"><use href="#icon-check"></use></svg>
+            Approve mapping
+          </button>
+          <span class="approval-footnote" id="approvalFootnote">Local review state · no CRM write</span>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="./js/app.js?v=20261112a"></script>
+</body>
+</html>
